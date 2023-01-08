@@ -1,45 +1,20 @@
 package com.antihero.example;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.util.Scanner;
 
-public final class Main {
+public final class Main{
     public static void main(String[] args) throws IOException {
-        System.out.println("Please Enter Y for Start or Any Other Keys for Exit");
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        char c = (char) bufferedReader.read();
-        if (c == 'Y') {
-            System.out.println("Start Writing");
-            File unicodeCharFile = new File("unicode.txt");
-            if (unicodeCharFile.exists()) {
-                unicodeCharFile.delete();
-                unicodeCharFile.createNewFile();
-            } else {
-                unicodeCharFile.createNewFile();
-            }
-            FileOutputStream fileOutputStream = new FileOutputStream(unicodeCharFile);
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8);
-            int i = 0;
-            short Char = 0 /* Short.MIN_VALUE */;
-            for (int bufferedChar = Short.toUnsignedInt(Char); bufferedChar <= 65535; bufferedChar++) {
-                i++;
-                float percent = (float)i / 65536;
-                if (i % 10 == 0) {
-                    outputStreamWriter.write(i + "");
-                    outputStreamWriter.write(" ");
-                    outputStreamWriter.write((char) bufferedChar);
-                    outputStreamWriter.append("\r\n");
-                } else {
-                    outputStreamWriter.write(i + "");
-                    outputStreamWriter.write(" ");
-                    outputStreamWriter.write((char) bufferedChar);
-                    outputStreamWriter.write("   ");
-                }
-                System.out.println("Status: " + (percent * 100) + "%");
-            }
-            fileOutputStream.close();
+        System.out.println("Unicode Character Writer v 1.0. Program made by Antihero. Maker do not prefer any license, so do not distribute!");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please input an integer among 0 to 65536");
+        final int START_CHARACTER = scanner.nextInt();
+        System.out.println("Please input another integer among which-you-typed-integer to 65536");
+        final int END_CHARACTER = scanner.nextInt();
+        if (START_CHARACTER == 0 | END_CHARACTER == 0 ) {
+            (new CharacterPrinter()).start();
         } else {
-            System.out.println("Program has been Exit");
+            (new CharacterPrinter(START_CHARACTER, END_CHARACTER)).start();
         }
     }
 }
